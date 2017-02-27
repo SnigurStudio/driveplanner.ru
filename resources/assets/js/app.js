@@ -5,7 +5,7 @@ var Vue = require('vue');
 
 
 import Test from './components/test.vue';
-Vue.component( 'test', Test );
+Vue.component( 'Test', Test );
 
 
 let test = new Vue({

@@ -10,7 +10,10 @@
 </head>
 <body>
 
-    <div id="vue-container"></div>
-    <script src="/js/{{js()}}" async></script>
+    <div id="vue-container">
+        <Test></Test>
+    </div>
+
+    <script src="/js/{{js()}}"></script>
 </body>
 </html>
