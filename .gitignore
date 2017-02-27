@@ -7,4 +7,6 @@
 Homestead.json
 Homestead.yaml
 .env
+/resources/assets/manifests
 /public_html
+/public
