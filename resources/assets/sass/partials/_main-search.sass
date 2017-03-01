@@ -1,0 +1,31 @@
+.main-search-wrapper
+  background: #f3f3f3
+  padding: 100px 0
+  display: flex
+  justify-content: center
+  align-items: center
+  flex-direction: column
+.main-search
+  display: flex
+  align-items: stretch
+  background: #fff
+  padding: 50px
+  border-radius: 5px
+.main-search__item
+  &:not(:last-child)
+    margin-right: 10px
+  &.btn
+    margin-top: 10px
+  input
+    width: 300px
+.main-search-links
+  font-size: .9rem
+  margin-top: 20px
+  > li
+    display: inline-block
+    +nl
+      &:after
+        content: '|'
+        padding-left:  10px
+        padding-right: 5px
+        color: rgba(#000, .3)
