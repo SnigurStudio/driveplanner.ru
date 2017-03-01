@@ -20,7 +20,7 @@ var source = require('vinyl-source-stream');
 var uglify      = require('gulp-uglify');
 var buffer = require('vinyl-buffer');
 var vueify = require('vueify');
-
+var bcss = require('browserify-css');
 
 
 
@@ -90,10 +90,12 @@ gulp.task('js',['apply-prod'], function () {
         debug: true,
         paths: ['./node_modules']
     })
-    .transform('babelify', {
-        presets: ['es2015']
-    })
-    .transform('vueify')
+
+        .transform('babelify', {
+            presets: ['es2015']
+        })
+        .transform('vueify')
+        .transform(bcss, {global: true})
     .bundle()
     .on('error', function(err){
         gutil.log(gutil.colors.red.bold('[browserify error]'));
@@ -114,6 +116,9 @@ gulp.task('js:production',['js:clean','apply-prod'], function () {
             presets: ['es2015']
         })
         .transform('vueify')
+        .transform(bcss, {
+            global: true
+        })
         .bundle()
         .on('error', function(err){
             gutil.log(gutil.colors.red.bold('[browserify error]'));
