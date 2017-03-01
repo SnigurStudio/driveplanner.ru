@@ -7,7 +7,7 @@
     export default {
         data : function() {
             return {
-                test: 'Hello from vue ;)'
+                test: 'Hello from vue ;) !'
             }
         },
     }

@@ -169,7 +169,7 @@ gulp.task('sass:production',['sass:clean'], function () {
 
 gulp.task('serve', ['sass','js','image:production', 'fonts'], function() {
     browserSync.init({
-        proxy: 'http://dev.driveplanner/',
+        proxy: 'http://dev.driveplanner.ru',
         notify: false
     });
     gulp.watch('./resources/assets/sass/**/*', ['sass']);
