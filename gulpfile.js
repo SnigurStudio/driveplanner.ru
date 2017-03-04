@@ -95,7 +95,9 @@ gulp.task('js',['apply-prod'], function () {
             presets: ['es2015']
         })
         .transform('vueify')
-        .transform(bcss, {global: true})
+        .transform(bcss, {
+            global: true
+        })
     .bundle()
     .on('error', function(err){
         gutil.log(gutil.colors.red.bold('[browserify error]'));
