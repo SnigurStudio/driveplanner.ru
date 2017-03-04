@@ -1,16 +1,17 @@
-window.$ = require('jquery');
-var Vue = require('vue');
+import Vue from 'vue'
+import jQuery from 'jquery'
+window.$ = window.jQuery = jQuery;
 
+import 'remodal'
+import 'remodal/dist/remodal.css'
+import 'remodal/dist/remodal-default-theme.css'
 
-require('remodal');
-require('remodal/dist/remodal.css');
-require('remodal/dist/remodal-default-theme.css');
 $('[data-remodal-id=modal]').remodal({});
 
-import Test from './components/test.vue';
-Vue.component( 'Test', Test );
+import Register from './components/Register.vue';
+Vue.component( 'Register', Register );
 
 
-let test = new Vue({
-    el: '#vue-container'
+let app = new Vue({
+    el: '#main'
 });

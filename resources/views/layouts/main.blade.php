@@ -14,7 +14,7 @@
 <body>
 
 
-<div class="main">
+<div class="main" id="main">
     @include('partials/header')
     <div class="content">@yield('content')</div>
     @include('partials/footer')
