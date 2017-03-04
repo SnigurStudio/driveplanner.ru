@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Role;
+use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+use App\Jobs\SendEmailActivateCode;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -38,10 +40,35 @@ class RegisterController extends Controller
 
         $user = User::create( $request->all() );
 
+//        if ( $user )
+//            dispatch((new SendEmailActivateCode($user))->delay(Carbon::now()->addSeconds(5)));
+
+        $code = $user->codes()->orderby('updated_at')->first()->code;
+        if ( $user )
+            Mail::send('emails.register', array('url' => route('register.activate',['email' => $user->email, 'code' => $code ])), function($message) use( $request )
+            {
+                $message->to($request->email)->subject('Регистрация на driveplanner.ru');
+            });
+
         return Response::json([
             'success' => true
         ], 200);
 
+    }
+
+    public function activate( $email, $code )
+    {
+        $user = User::where('email',$email)->first();
+        if( !$user ) return die('Отсуствует пользователь');
+
+        $codes = $user->codes()->where('used', false)->first();
+        if( !$code ) return die('Не найден код активации или отсуствует пользователь');
+
+        if ( $code != $codes->code ) return die('Не правильный код активации');
+
+        $user->active = true;
+        $user->save();
+        return view('register.activate');
     }
 
 }

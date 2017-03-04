@@ -5,12 +5,10 @@ Route::get('/', function () {
 });
 
 Route::post('/register', [ 'uses' => 'Auth\RegisterController@create' ] )->name('register.create');
+Route::get('/register/activate/{email}/{code}', [ 'uses' => 'Auth\RegisterController@activate' ] )->name('register.activate');
+
+
 
 Route::get('test', function () {
-    \App\User::create([
-        'email' => 'test@mail.ru',
-        'password' => 'pass',
-    ]);
+
 });
-
-
