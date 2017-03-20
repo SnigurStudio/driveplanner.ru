@@ -20,7 +20,7 @@
     @include('partials/footer')
     
     <Register recaptchakey="{{env('GOOGLE_RECAPTCHA_KEY')}}" action="{{route('register.create')}}"></Register>
-    <Login></Login>
+    <Login action="{{route('login')}}"></Login>
 </div>
 
 

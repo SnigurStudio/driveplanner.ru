@@ -28,6 +28,21 @@
 
     }
 
+    function checkGoogleCaptcha($token)
+    {
+        $recaptcha = false;
+        if( $curl = curl_init() ) {
+            curl_setopt($curl, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, 'secret= '.env('GOOGLE_RECAPTCHA_SECRET')."&response={$token}");
+            $recaptcha = json_decode(curl_exec($curl));
+            curl_close($curl);
+        }
+
+        return $recaptcha;
+    }
+
 
 
 ?>

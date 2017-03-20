@@ -24,17 +24,7 @@ class RegisterController extends Controller
         if ( $validator->fails() )
             return Response::json($validator->getMessageBag()->toArray(), 422);
 
-        $recaptcha = false;
-        if( $curl = curl_init() ) {
-            curl_setopt($curl, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, 'secret= '.env('GOOGLE_RECAPTCHA_SECRET')."&response={$request->input('g-recaptcha-response')}");
-            $recaptcha = json_decode(curl_exec($curl));
-            curl_close($curl);
-        }
-
-        if ( !$recaptcha->success )
+        if ( !checkGoogleCaptcha( $request->input('g-recaptcha-response') ) )
             return Response::json(['g-recaptcha-response' => ['Нужно пройти проверку'] ], 422);
 
 
